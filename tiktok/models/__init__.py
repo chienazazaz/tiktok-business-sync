@@ -203,5 +203,5 @@ from tiktok.models.business_centers import BusinessCenter
 TIKTOK_MODELS = {
     "reporting": AD_REPORTING_MODELS.keys(),
     "business_center": BusinessCenter,
-    "asset": Asset,
+    "assets": Asset,
 }

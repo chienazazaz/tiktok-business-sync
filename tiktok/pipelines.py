@@ -35,7 +35,11 @@ def run_pipeline(params: Dict) -> Dict[str, Any]:
 
 
 def create_tasks_pipelines(param: Dict, **kwargs) -> Dict[str, int]:
+    if not kwargs.get("type"):
+        raise Exception("please provide task type")
     if kwargs.get("type") == "reporting":
+        if not kwargs.get("business_ids"):
+            raise Exception("please provide business_ids")
         accounts = (
             {
                 "advertiser_ids": list(
@@ -53,7 +57,9 @@ def create_tasks_pipelines(param: Dict, **kwargs) -> Dict[str, int]:
             for account in accounts
             for model in models
         )
-    elif kwargs.get("name") == "asset":
+    elif kwargs.get("name") == "assets":
+        if not kwargs.get("business_ids"):
+            raise Exception("please provide business_ids")
         payloads = list(
             {**param, "bc_id": business_id, "name": "asset"}
             for business_id in kwargs.get("business_ids")

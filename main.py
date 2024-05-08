@@ -21,7 +21,6 @@ class PipelineRequestParams(DefaultRequestParams):
     name: str
     type: Union[str, None] = None
     business_ids: Union[List[str], None] = None
-    bc_id: Union[str, None] = None
     advertiser_ids: Union[List[str],None] = None
     advertiser_id: Union[str,None] = None
 

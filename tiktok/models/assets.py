@@ -16,7 +16,7 @@ class Asset(Model):
         data = []
         for asset_type in self.asset_types:
             result = super().get({**param, "asset_type": asset_type},data={})
-            data.append(*result) if result else None
+            data.extend(result) if result else None
         return self.transform(data)
 
     def getAdAccounts(self, param: Dict,*args,**kwargs) -> List[str]:
