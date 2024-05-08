@@ -31,6 +31,6 @@ class TiktokClient:
             headers=self.headers,
         )
         # print(response.url)
-        # print(response.text)
+        print(response.text)
         # print(response.headers)
         return response.json()
