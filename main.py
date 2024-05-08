@@ -1,7 +1,6 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 import json
-from tkinter import N
-from typing import List, Optional, Union
+from typing import List, Union
 from fastapi import FastAPI
 from pydantic import BaseModel
 
@@ -32,7 +31,7 @@ def creatTasksHandler(request: DefaultRequestParams, type: str):
     params = json.loads(request.model_dump_json())
     start_date, end_date, business_ids = params.get("start_date"), params.get("end_date"),params.get("business_ids")
     if not start_date:
-        start_date = datetime.now().strftime("%Y-%m-%d")
+        start_date = (datetime.now() - timedelta(days=1)).strftime("%Y-%m-%d")
     if not end_date:
         end_date = datetime.now().strftime("%Y-%m-%d")
     return create_tasks_pipelines(
