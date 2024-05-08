@@ -1,4 +1,4 @@
-FROM --platform=linux/arm64 python:3.9-bullseye
+FROM --platform=linux/amd64 python:3.9-bullseye
 
 ENV APP_HOME /app
 WORKDIR $APP_HOME
