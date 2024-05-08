@@ -32,7 +32,7 @@ def creatTasksHandler(request: DefaultRequestParams, type: str):
     if not start_date:
         start_date = (datetime.now() - timedelta(days=1)).strftime("%Y-%m-%d")
     if not end_date:
-        end_date = datetime.now().strftime("%Y-%m-%d")
+        end_date = start_date
     return create_tasks_pipelines(
         {"start_date": start_date, "end_date": end_date},
         type=str(type),

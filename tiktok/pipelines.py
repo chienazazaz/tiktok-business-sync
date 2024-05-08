@@ -40,17 +40,14 @@ def create_tasks_pipelines(param: Dict, **kwargs) -> Dict[str, int]:
     if kwargs.get("type") == "reporting":
         if not kwargs.get("business_ids"):
             raise Exception("please provide business_ids")
-        accounts = (
+        accounts = list(
             {
-                "advertiser_ids": list(
-                    account
-                    for account in Asset().getAdAccounts({"bc_id": f"{business_id}"})
-                ),
+                "advertiser_id": account,
                 "bc_id": business_id,
             }
             for business_id in kwargs.get("business_ids")
+            for account in Asset().getAdAccounts({"bc_id": f"{business_id}"})
         )
-
         models = TIKTOK_MODELS["reporting"]
         payloads = list(
             {**param, **account, "name": model, "type": "reporting"}
@@ -67,7 +64,6 @@ def create_tasks_pipelines(param: Dict, **kwargs) -> Dict[str, int]:
     else:
         payloads = [{**param, "name": kwargs.get("name")}]
 
-    # print(payloads)
     result = create_tasks(
         payloads=payloads,
         nameFn=(
