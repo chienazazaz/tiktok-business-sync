@@ -6,6 +6,7 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 
 
+from tiktok.auth.auth import set_access_token
 from tiktok.pipelines import create_tasks_pipelines, run_pipeline
 
 app = FastAPI()
@@ -40,6 +41,11 @@ def creatTasksHandler(request: DefaultRequestParams, type: str):
         business_ids=business_ids,
         name=str(type),
     )
+
+@app.get("/callback", tags=["set access-token"], response_model=None)
+def callbackHandler(auth_code:str):
+    set_access_token(auth_code)
+    return {"status": "success"}
 
 
 @app.post("/", tags=["run pipeline"], response_model=None)
