@@ -22,7 +22,7 @@ class Model:
             # print(response)
             # response = response_.get("data")
             result, page_info = response.get("list"), response.get("page_info")
-            data.append(*result) if result else None
+            data.extend(result) if result else None
             if page_info.get("page") < page_info.get("total_page"):
                 return _get({**param, "page": page_info.get("page") + 1})
             else:

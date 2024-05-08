@@ -15,12 +15,9 @@ def get_model(name: str, **kwargs) -> Model:
     return TIKTOK_MODELS[name]()
 
 
-def run_pipeline(params:Dict) -> Dict[str,Any]:
+def run_pipeline(params: Dict) -> Dict[str, Any]:
     # print(params)
-    model = get_model(
-        params.get("name"),
-        type = params.get("type")
-    )
+    model = get_model(params.get("name"), type=params.get("type"))
 
     data = model.get(param=params, data={})
     _batched_at = datetime.now(timezone.utc)
@@ -30,26 +27,32 @@ def run_pipeline(params:Dict) -> Dict[str,Any]:
         name=f"p_{model.name}__{_batched_at.strftime('%Y%m%d')}",
     )
 
-    return {"result": result.done(), "table": f"{model.name}", "num_inserted": len(data)}
+    return {
+        "result": result.done(),
+        "table": f"{model.name}",
+        "num_inserted": len(data),
+    }
 
 
-def create_tasks_pipelines(param: Dict, **kwargs) -> Dict[str,int]:
+def create_tasks_pipelines(param: Dict, **kwargs) -> Dict[str, int]:
     if kwargs.get("type") == "reporting":
         accounts = (
-            {"advertiser_ids": list(
-                account
-                for account in Asset().getAdAccounts({"bc_id": f"{business_id}"})
-            ),"bc_id":business_id}
+            {
+                "advertiser_ids": list(
+                    account
+                    for account in Asset().getAdAccounts({"bc_id": f"{business_id}"})
+                ),
+                "bc_id": business_id,
+            }
             for business_id in kwargs.get("business_ids")
         )
 
         models = TIKTOK_MODELS["reporting"]
         payloads = list(
-            {**param, **account, "name": model,"type":"reporting"}
+            {**param, **account, "name": model, "type": "reporting"}
             for account in accounts
             for model in models
         )
-        print(payloads)
     elif kwargs.get("name") == "asset":
         payloads = list(
             {**param, "bc_id": business_id, "name": "asset"}
@@ -57,6 +60,8 @@ def create_tasks_pipelines(param: Dict, **kwargs) -> Dict[str,int]:
         )
     else:
         payloads = [{**param, "name": kwargs.get("name")}]
+
+    # print(payloads)
     result = create_tasks(
         payloads=payloads,
         nameFn=(
@@ -70,4 +75,4 @@ def create_tasks_pipelines(param: Dict, **kwargs) -> Dict[str,int]:
         ),
     )
 
-    return {"num_tasks":result}
+    return {"num_tasks": result}

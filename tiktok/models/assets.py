@@ -21,5 +21,4 @@ class Asset(Model):
 
     def getAdAccounts(self, param: Dict,*args,**kwargs) -> List[str]:
         accounts = super().get({**param, "asset_type": "ADVERTISER"},data={})
-        # print(accounts)
         return list(account.get("asset_id") for account in accounts)

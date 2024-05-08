@@ -101,6 +101,7 @@ class AdReporting(Model):
         param["page_size"] = 1000
         param["metrics"] = json.dumps(AD_REPORTING_MODELS[self.name].get("metrics"))
         param["dimensions"] = json.dumps(AD_REPORTING_MODELS[self.name].get("dimensions"))
+        param["advertiser_ids"] = json.dumps(param.get("advertiser_ids"))
         param["report_type"] = AD_REPORTING_MODELS[self.name].get("report_type")
         param["data_level"] = AD_REPORTING_MODELS[self.name].get("data_level")
         return super().get(param=param, data={})

@@ -14,6 +14,7 @@ app = FastAPI()
 class DefaultRequestParams(BaseModel):
     start_date: Union[str, None] = None
     end_date: Union[str, None] = None
+    business_ids: Union[List[str], None] = None
 
 
 class PipelineRequestParams(DefaultRequestParams):
@@ -26,8 +27,9 @@ class PipelineRequestParams(DefaultRequestParams):
 
 
 @app.post("/tasks/{type}", tags=["create tasks"], response_model=None)
-def creatTasksHandler(param: DefaultRequestParams, type: str):
-    start_date, end_date = param.start_date, param.end_date
+def creatTasksHandler(request: DefaultRequestParams, type: str):
+    params = json.loads(request.model_dump_json())
+    start_date, end_date, business_ids = params.get("start_date"), params.get("end_date"),params.get("business_ids")
     if not start_date:
         start_date = datetime.now().strftime("%Y-%m-%d")
     if not end_date:
@@ -35,15 +37,14 @@ def creatTasksHandler(param: DefaultRequestParams, type: str):
     return create_tasks_pipelines(
         {"start_date": start_date, "end_date": end_date},
         type=str(type),
-        business_ids=["7362106247526563856"],
+        business_ids=business_ids,
         name=str(type),
     )
 
 
 @app.post("/", tags=["run pipeline"], response_model=None)
 def runPipelineHandler(request: PipelineRequestParams):
-    
-    params = request.model_dump_json()
-    params = json.loads(params)
+    params = json.loads(request.model_dump_json())
+    print(params)
     result = run_pipeline(params)
     return result
