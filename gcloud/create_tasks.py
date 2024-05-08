@@ -1,3 +1,4 @@
+import json
 from typing import List, Dict, Callable
 from uuid import uuid4
 from google.cloud import tasks_v2
@@ -21,7 +22,7 @@ def create_tasks(payloads: List[Dict], nameFn: Callable) -> int:
                         "url": f"{PUBLIC_URL}/",
                         "http_method": "POST",
                         "headers": {"Content-Type": "application/json"},
-                        "body": str(payload).encode(),
+                        "body": json.dumps(payload).encode(),
                         "oidc_token": {
                             "service_account_email": SERVICE_ACCOUNT,
                         },
