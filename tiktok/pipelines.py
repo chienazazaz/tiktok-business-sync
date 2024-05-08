@@ -24,7 +24,7 @@ def run_pipeline(params: Dict) -> Dict[str, Any]:
     result = load(
         map(lambda x: {"data": x, "_batched_at": _batched_at.isoformat()}, data),
         schema=[*model.schema, {"name": "_batched_at", "type": "TIMESTAMP"}],
-        name=f"p_{model.name}__{_batched_at.strftime('%Y%m%d')}",
+        name=f"p_{model.name.lower()}__{_batched_at.strftime('%Y%m%d')}",
     )
 
     return {
