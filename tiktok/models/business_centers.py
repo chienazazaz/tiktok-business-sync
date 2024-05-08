@@ -12,4 +12,4 @@ class BusinessCenter(Model):
         return list(row.get("bc_info") for row in data)
 
     def get(self, param: Dict,*args,**kwargs) -> List[Dict]:
-        return self.transform(super().get(param={}, data={}))
+        return self.transform(super().get(param={}))

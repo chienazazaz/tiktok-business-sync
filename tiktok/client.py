@@ -36,4 +36,6 @@ class TiktokClient:
                 {"code": response.get("code"), "message": response.get("message")}
             )
 
+        # print(response)
+
         return response

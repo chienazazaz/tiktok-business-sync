@@ -15,10 +15,10 @@ class Asset(Model):
     def get(self, param: Dict,*args,**kwargs) -> List[Dict]:
         data = []
         for asset_type in self.asset_types:
-            result = super().get({**param, "asset_type": asset_type},data={})
+            result = super().get({**param, "asset_type": asset_type},request_data={})
             data.extend(result) if result else None
         return self.transform(data)
 
     def getAdAccounts(self, param: Dict,*args,**kwargs) -> List[str]:
-        accounts = super().get({**param, "asset_type": "ADVERTISER"},data={})
+        accounts = super().get({**param, "asset_type": "ADVERTISER"})
         return list(account.get("asset_id") for account in accounts)

@@ -75,16 +75,16 @@ AD_REPORTING_MODELS = {
             *TIKTOK_AD_METRICS["ENGAGEMENT_METRICS"],
         ],
     },
-    "DSA_REPORT": {
-        "report_type": "CATALOG",
-        "data_level": "AUCTION_AD",
-        "dimensions": ["ad_id", "stat_time_day"],
-        "metrics": [
-            *TIKTOK_AD_METRICS["ATTRIBUTES"],
-            *TIKTOK_AD_METRICS["PRODUCT_ATTRIBUTES"],
-            *TIKTOK_AD_METRICS["BASIC_AD_METRICS"],
-        ],
-    },
+    # "DSA_REPORT": {
+    #     "report_type": "CATALOG",
+    #     "data_level": "AUCTION_AD",
+    #     "dimensions": ["ad_id", "stat_time_day","product_id"],
+    #     "metrics": [
+    #         *TIKTOK_AD_METRICS["ATTRIBUTES"],
+    #         *TIKTOK_AD_METRICS["PRODUCT_ATTRIBUTES"],
+    #         *TIKTOK_AD_METRICS["BASIC_AD_METRICS"],
+    #     ],
+    # },
 }
 
 
@@ -105,4 +105,4 @@ class AdReporting(Model):
         param["data_level"] = AD_REPORTING_MODELS[self.name].get("data_level")
         if param.get("advertiser_ids"):
             param["advertiser_ids"] = json.dumps(param.get("advertiser_ids"))
-        return super().get(param=param, data={})
+        return super().get(param=param)
