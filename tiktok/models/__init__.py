@@ -65,7 +65,7 @@ TIKTOK_AD_METRICS = {
         # "video_watched_continuous_2s",
         "video_watched_6s",
         "average_video_play",
-        # "average_video_play_per_user",
+        "average_video_play_per_user",
         "video_views_p25",
         "video_views_p50",
         "video_views_p75",

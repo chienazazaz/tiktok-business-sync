@@ -29,8 +29,11 @@ class TiktokClient:
             params=param,
             data=json.dumps(data),
             headers=self.headers,
-        )
-        # print(response.url)
-        print(response.text)
-        # print(response.headers)
-        return response.json()
+        ).json()
+
+        if response.get("code") != 0:
+            raise Exception(
+                {"code": response.get("code"), "message": response.get("message")}
+            )
+
+        return response
