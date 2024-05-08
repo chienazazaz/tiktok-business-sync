@@ -2,7 +2,7 @@ import json
 
 import requests
 from gcloud.secret_manager import set_secret
-from tiktok import APP_ID, APP_SECRET
+from tiktok.auth import APP_ID, APP_SECDRET
 from tiktok.client import build_url
 
 
@@ -16,7 +16,7 @@ def exchange_access_token(auth_code: str) -> str:
         url=url,
         headers=headers,
         data=json.dumps(
-            {"app_id": APP_ID, "secret": APP_SECRET, "auth_code": auth_code}
+            {"app_id": APP_ID, "secret": APP_SECDRET, "auth_code": auth_code}
         ),
     ).json()
 
