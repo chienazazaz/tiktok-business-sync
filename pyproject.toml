@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "tiktok-business"
+name = "tiktok-business-sync"
 version = "0.1.0"
 description = ""
 authors = ["Chien Le <lchien063@gmail.com>"]
