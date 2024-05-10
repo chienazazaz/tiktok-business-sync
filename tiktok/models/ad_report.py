@@ -1,14 +1,9 @@
 import json
-from typing import Dict, List, TypedDict
+from typing import Dict, List
 
 from tiktok.model import Model
-from tiktok.models import TIKTOK_AD_METRICS
+from tiktok.models import TIKTOK_AD_METRICS, AdRequestParam
 
-
-class AdRequestParam(TypedDict):
-    advertiser_id: str
-    start_date: str
-    end_date: str
 
 
 AD_REPORTING_MODELS = {
@@ -88,7 +83,7 @@ AD_REPORTING_MODELS = {
 }
 
 
-class AdReporting(Model):
+class AdReport(Model):
 
     def __init__(self,name:str):
         self.name = name

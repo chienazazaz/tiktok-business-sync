@@ -1,4 +1,11 @@
-TIKTOK_BUSINESS_IDS = ["7362106247526563856"]
+
+from typing import TypedDict
+
+
+class AdRequestParam(TypedDict):
+    advertiser_id: str
+    start_date: str
+    end_date: str
 
 
 TIKTOK_AD_DIMENSIONS = {
@@ -195,7 +202,7 @@ TIKTOK_AD_METRICS = {
     ],
 }
 
-from tiktok.models.ad_reporting import AD_REPORTING_MODELS
+from tiktok.models.ad_report import AD_REPORTING_MODELS
 from tiktok.models.assets import Asset
 from tiktok.models.business_centers import BusinessCenter
 

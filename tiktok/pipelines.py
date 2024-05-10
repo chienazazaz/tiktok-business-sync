@@ -3,7 +3,7 @@ from gcloud.bigquery import load
 from gcloud.create_tasks import create_tasks
 from tiktok.model import Model
 from tiktok.models import TIKTOK_MODELS
-from tiktok.models.ad_reporting import AdReporting
+from tiktok.models.ad_report import AdReporting
 from datetime import datetime, timezone
 
 from tiktok.models.assets import Asset
