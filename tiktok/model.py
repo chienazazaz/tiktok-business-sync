@@ -10,11 +10,8 @@ class Model:
         self.name = name
         self.path = path
 
-    # def transform(self, data: List[Dict]) -> List[Dict]:
-    #     return {"data": data}
-
     def get(
-        self, param: Optional[Dict], request_data: Optional[Dict] = None
+        self, param: Optional[Dict] = None, request_data: Optional[Dict] = None
     ) -> List[Dict]:
         data = []
         param["page_size"] = param.get("page_size") or 50

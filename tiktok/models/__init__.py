@@ -1,4 +1,3 @@
-
 from typing import TypedDict
 
 
@@ -202,13 +201,5 @@ TIKTOK_AD_METRICS = {
     ],
 }
 
-from tiktok.models.ad_report import AD_REPORTING_MODELS
-from tiktok.models.assets import Asset
-from tiktok.models.business_centers import BusinessCenter
 
 
-TIKTOK_MODELS = {
-    "reporting": AD_REPORTING_MODELS.keys(),
-    "business_center": BusinessCenter,
-    "assets": Asset,
-}

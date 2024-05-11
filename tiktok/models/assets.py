@@ -9,9 +9,6 @@ class Asset(Model):
         self.name = "assets"
         self.path = "bc/asset/get/"
 
-    def transform(self, data):
-        return data
-
     def get(self, param: Dict,*args,**kwargs) -> List[Dict]:
         data = []
         for asset_type in self.asset_types:

@@ -89,9 +89,6 @@ class AdReport(Model):
         self.name = name
         self.path = "report/integrated/get/"
 
-    def transform(self, data):
-        return data
-
     def get(self, param: AdRequestParam,*args,**kwargs) -> List[Dict]:
         param["page_size"] = 1000
         param["metrics"] = json.dumps(AD_REPORTING_MODELS[self.name].get("metrics"))

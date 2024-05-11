@@ -1,18 +1,20 @@
-from typing import Any, Dict
-from gcloud.bigquery import load
-from gcloud.create_tasks import create_tasks
-from tiktok.model import Model
-from tiktok.models import TIKTOK_MODELS
-from tiktok.models.ad_report import AdReporting
+from typing import Any, Dict, List
 from datetime import datetime, timezone
 
+from gcloud.bigquery import load
+from gcloud.create_tasks import create_tasks
+
+from tiktok.model import Model
+from tiktok import TIKTOK_MODELS
+from tiktok.models.ad_report import AdReport
 from tiktok.models.assets import Asset
 
 
-def get_model(name: str, **kwargs) -> Model:
-    if kwargs.get("type") == "reporting":
-        return AdReporting(name)
-    return TIKTOK_MODELS[name]()
+
+def get_model(name: str, type: str) -> Model:
+    if type == "reporting":
+        return AdReport(name)
+    return TIKTOK_MODELS[type][name]()
 
 
 def run_pipeline(params: Dict) -> Dict[str, Any]:
@@ -34,10 +36,11 @@ def run_pipeline(params: Dict) -> Dict[str, Any]:
     }
 
 
-def create_tasks_pipelines(param: Dict, **kwargs) -> Dict[str, int]:
-    if not kwargs.get("type"):
-        raise Exception("please provide task type")
-    if kwargs.get("type") == "reporting":
+def create_tasks_payloads(param: Dict, **kwargs) -> List[Dict]:
+    type_ = kwargs.get("type")
+    models = TIKTOK_MODELS[type_] if type(TIKTOK_MODELS[type_]) is list else list(TIKTOK_MODELS[type_].keys())
+
+    if type_ in ["reporting", "advertiser-assets"]:
         if not kwargs.get("business_ids"):
             raise Exception("please provide business_ids")
         accounts = list(
@@ -48,21 +51,27 @@ def create_tasks_pipelines(param: Dict, **kwargs) -> Dict[str, int]:
             for business_id in kwargs.get("business_ids")
             for account in Asset().getAdAccounts({"bc_id": f"{business_id}"})
         )
-        models = TIKTOK_MODELS["reporting"]
-        payloads = list(
+
+        return list(
             {**param, **account, "name": model, "type": "reporting"}
             for account in accounts
             for model in models
         )
-    elif kwargs.get("name") == "assets":
+
+    if type_ in ["business-assets"]:
         if not kwargs.get("business_ids"):
             raise Exception("please provide business_ids")
-        payloads = list(
+        return list(
             {**param, "bc_id": business_id, "name": "asset"}
             for business_id in kwargs.get("business_ids")
         )
-    else:
-        payloads = [{**param, "name": kwargs.get("name")}]
+
+    return [{**param, "name": model} for model in models]
+
+
+def create_tasks_pipelines(param: Dict, **kwargs) -> Dict[str, int]:
+
+    payloads = create_tasks_payloads(param, **kwargs)
 
     result = create_tasks(
         payloads=payloads,

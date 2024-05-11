@@ -21,14 +21,18 @@ class PipelineRequestParams(DefaultRequestParams):
     name: str
     type: Union[str, None] = None
     business_ids: Union[List[str], None] = None
-    advertiser_ids: Union[List[str],None] = None
-    advertiser_id: Union[str,None] = None
+    advertiser_ids: Union[List[str], None] = None
+    advertiser_id: Union[str, None] = None
 
 
 @app.post("/tasks/{type}", tags=["create tasks"], response_model=None)
 def creatTasksHandler(request: DefaultRequestParams, type: str):
     params = json.loads(request.model_dump_json())
-    start_date, end_date, business_ids = params.get("start_date"), params.get("end_date"),params.get("business_ids")
+    start_date, end_date, business_ids = (
+        params.get("start_date"),
+        params.get("end_date"),
+        params.get("business_ids"),
+    )
     if not start_date:
         start_date = (datetime.now() - timedelta(days=1)).strftime("%Y-%m-%d")
     if not end_date:
@@ -37,11 +41,11 @@ def creatTasksHandler(request: DefaultRequestParams, type: str):
         {"start_date": start_date, "end_date": end_date},
         type=str(type),
         business_ids=business_ids,
-        name=str(type),
     )
 
+
 @app.get("/callback", tags=["set access-token"], response_model=None)
-def callbackHandler(auth_code:str):
+def callbackHandler(auth_code: str):
     set_access_token(auth_code)
     return {"status": "success"}
 

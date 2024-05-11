@@ -4,7 +4,7 @@ from urllib.parse import urlunparse
 from typing import Dict
 
 from gcloud.secret_manager import get_secret
-from tiktok import ENV, SANDBOX_ACCESS_TOKEN, ACCESS_TOKEN
+from tiktok import ACCESS_TOKEN
 
 
 def build_url(path: str, query="") -> str:
