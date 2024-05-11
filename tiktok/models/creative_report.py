@@ -30,8 +30,8 @@ CREATIVE_REPORT_METRICS = list(
 class CreativeReport(Model):
     material_types = ["VIDEO", "IMAGE", "INSTANT_PAGE"]
 
-    def __init__(self, name: str):
-        self.name = name
+    def __init__(self, ):
+        self.name = "creative_report"
         self.path = "creative/report/get/"
 
     def get(self, param: AdRequestParam, *args, **kwargs) -> List[Dict]:
