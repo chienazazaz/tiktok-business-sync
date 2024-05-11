@@ -11,15 +11,15 @@ from tiktok.models.assets import Asset
 
 
 
-def get_model(name: str, type: str) -> Model:
-    if type == "reporting":
+def get_model(name: str, pipeline: str) -> Model:
+    if pipeline == "reporting":
         return AdReport(name)
-    return TIKTOK_MODELS[type][name]()
+    return TIKTOK_MODELS[pipeline][name]()
 
 
 def run_pipeline(params: Dict) -> Dict[str, Any]:
     # print(params)
-    model = get_model(params.get("name"), type=params.get("type"))
+    model = get_model(params.get("name"), pipeline=params.get("type"))
 
     data = model.get(param=params, data={})
     _batched_at = datetime.now(timezone.utc)
@@ -53,7 +53,7 @@ def create_tasks_payloads(param: Dict, **kwargs) -> List[Dict]:
         )
 
         return list(
-            {**param, **account, "name": model, "type": "reporting"}
+            {**param, **account, "name": model, "type": type_}
             for account in accounts
             for model in models
         )
