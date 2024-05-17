@@ -199,6 +199,29 @@ TIKTOK_AD_METRICS = {
         "skan_total_sales_lead",
         "skan_total_sales_lead_value",
     ],
+    "SHOP_METRICS": [
+        "onsite_shopping_roas",
+        "onsite_shopping",
+        "cost_per_onsite_shopping",
+        "onsite_shopping_rate",
+        "value_per_onsite_shopping",
+        "total_onsite_shopping_value",
+        "onsite_initiate_checkout_count",
+        "cost_per_onsite_initiate_checkout_count",
+        "onsite_initiate_checkout_count_rate",
+        "value_per_onsite_initiate_checkout_count",
+        "total_onsite_initiate_checkout_count_value",
+        "onsite_on_web_detail",
+        "cost_per_onsite_on_web_detail",
+        "onsite_on_web_detail_rate",
+        "value_per_onsite_on_web_detail",
+        "total_onsite_on_web_detail_value",
+        "onsite_on_web_cart",
+        "cost_per_onsite_on_web_cart",
+        "onsite_on_web_cart_rate",
+        "value_per_onsite_on_web_cart",
+        "total_onsite_on_web_cart_value",
+    ]
 }
 
 

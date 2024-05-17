@@ -22,6 +22,7 @@ AD_REPORTING_MODELS = {
             *TIKTOK_AD_METRICS["PAGE_EVENT_METRICS"],
             *TIKTOK_AD_METRICS["ATTRIBUTION_METRICS"],
             *TIKTOK_AD_METRICS["SKAN_METRICS"],
+            *TIKTOK_AD_METRICS["SHOP_METRICS"],
         ],
     },
     # "AD_REPORT_HOURLY": {
@@ -47,6 +48,7 @@ AD_REPORTING_MODELS = {
         "metrics": [
             *TIKTOK_AD_METRICS["ATTRIBUTES"],
             *TIKTOK_AD_METRICS["SINGLE_IMAGE_METRICS"],
+            *TIKTOK_AD_METRICS["SHOP_METRICS"],
         ],
     },
     "SEARCH_REPORT": {
@@ -57,6 +59,7 @@ AD_REPORTING_MODELS = {
             *TIKTOK_AD_METRICS["ATTRIBUTES"],
             *TIKTOK_AD_METRICS["BASIC_AD_METRICS"],
             *TIKTOK_AD_METRICS["VIDEO_AD_METRICS"],
+            # *TIKTOK_AD_METRICS["SHOP_METRICS"],
         ],
     },
     "AD_AGE_GENDER_REPORT": {
@@ -68,6 +71,7 @@ AD_REPORTING_MODELS = {
             *TIKTOK_AD_METRICS["BASIC_AD_METRICS"],
             *TIKTOK_AD_METRICS["VIDEO_METRICS"],
             *TIKTOK_AD_METRICS["ENGAGEMENT_METRICS"],
+            # *TIKTOK_AD_METRICS["SHOP_METRICS"],
         ],
     },
     # "DSA_REPORT": {
